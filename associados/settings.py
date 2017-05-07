@@ -181,6 +181,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'django_gravatar',
     'municipios',
+    'rest_framework'
 
 )
 
