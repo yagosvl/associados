@@ -75,7 +75,7 @@ class Member(models.Model):
 
     def save(self, *args, **kwargs):
         if self.hashmail is None:
-            self.hashmail = md5(self.user.email).digest()
+            self.hashmail = md5(self.user.email).hexdigest()
 
         super(Member, self).save()
 
