@@ -2,6 +2,7 @@
 
 import requests
 import slumber
+from hashlib import md5
 
 from django.db import models
 from django.conf import settings
@@ -70,17 +71,13 @@ class Member(models.Model):
                                   related_name="municipio_org_mun",
                                   null=True, blank=True)
 
-    # from hashlib import md5
-    # hash = md5(User.email).digest()
-    hashmail = models.CharField(max_length=255, blank=True, null=True)
+    hashmail = models.CharField(max_length=255, blank=True, null=True, db_index=True)
 
-    # TODO: override save to make the hash
     def save(self, *args, **kwargs):
         if self.hashmail is None:
-            from hashlib import md5
-            hashmail = md5(User.email).digest()
-            
-        super(Model, self).save()
+            self.hashmail = md5(self.user.email).digest()
+
+        super(Member, self).save()
 
     def get_days_to_next_payment(self, payment):
         if payment and payment.done() and payment.valid_until is not None:
