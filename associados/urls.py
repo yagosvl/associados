@@ -8,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
+    url(r'^api/v1/', include('app.api.v1.urls', namespace='api-v1')),
     url(r'^members/', include('app.members.urls')),
     url(r'^payment/', include(payment_urls)),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
