@@ -70,6 +70,17 @@ class Member(models.Model):
                                   related_name="municipio_org_mun",
                                   null=True, blank=True)
 
+    # from hashlib import md5
+    # hash = md5(User.email).digest()
+    hashmail = models.CharField(max_length=255, blank=True, null=True)
+
+    # TODO: override save to make the hash
+    def save(self, *args, **kwargs):
+        if self.hashlib is None:
+            from hashlib import md5
+            hashlib = md5(User.email).digest()
+        super(Model, self).save()
+
     def get_days_to_next_payment(self, payment):
         if payment and payment.done() and payment.valid_until is not None:
             dif = payment.valid_until - timezone.now()
