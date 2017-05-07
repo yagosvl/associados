@@ -79,6 +79,7 @@ class Member(models.Model):
         if self.hashmail is None:
             from hashlib import md5
             hashmail = md5(User.email).digest()
+            
         super(Model, self).save()
 
     def get_days_to_next_payment(self, payment):
