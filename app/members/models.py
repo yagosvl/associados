@@ -76,9 +76,9 @@ class Member(models.Model):
 
     # TODO: override save to make the hash
     def save(self, *args, **kwargs):
-        if self.hashlib is None:
+        if self.hashmail is None:
             from hashlib import md5
-            hashlib = md5(User.email).digest()
+            hashmail = md5(User.email).digest()
         super(Model, self).save()
 
     def get_days_to_next_payment(self, payment):
